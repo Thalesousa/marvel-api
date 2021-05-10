@@ -1,20 +1,67 @@
+import { GetStaticProps } from 'next';
 import { api } from '../services/api';
+import styles from './home.module.scss';
+import Image from 'next/image'; 
 
-export default function Home({data}) {
+type Hero = {
+  id: string;
+  name: string;
+  thumbnail: string;
+}
+
+type HomeProps = {
+  heroes: Hero[]
+}
+
+export default function Home({ heroes }: HomeProps) {
   return(
-    <>
-      <h1>Marvel</h1>
-      <p>{JSON.stringify(data.data.results)}</p>
-    </>
+    <div className={styles.homepage}>
+
+      <section className="allHeroes">
+        <ul>
+          {heroes.map(hero => {
+            return (
+              <li key={hero.id}>
+                <a href="#">
+                  <Image 
+                    width={256} 
+                    height={256} 
+                    src={hero.thumbnail} 
+                    alt={hero.name} 
+                    objectFit="cover" 
+                  />
+                  <div className="overlay">
+                    <div className="header">
+                      <h2>{hero.name}</h2>
+                    </div>
+                    <span>Saiba mais ➞</span>
+                  </div>
+                </a>
+              </li>
+            )
+          })}
+        </ul>
+      </section>
+    </div>
   )
 }
-export async function getServerSideProps() {
-  const response = await api.get('/characters')
-  const data = await response.data.json()
+
+export  const getStaticProps: GetStaticProps = async () => {
+  const {data} = await api.get('/characters')
+  
+  const {results} = data.data
+
+  const heroes = results.map(hero => {
+    return {
+      id: hero.id,
+      name: hero.name,
+      thumbnail: hero.thumbnail.path + '.' + hero.thumbnail.extension
+    }
+  })
 
   return {
     props: {
-      data
+      heroes
     }
   }
 }

@@ -1,0 +1,56 @@
+.card {
+  position: relative;
+  max-width: 256px;
+
+  display: block;
+  height: 100%;
+  border-radius: 20px;
+  
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+
+  .overlay{
+    background-color: var(--red);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    border-radius: 20px;
+    transform: translateY(100%);
+
+    .header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border-radius: 16px;
+      
+      padding: 1rem 2rem;
+      transform: translateY(-100%);
+      background-color: var(--red);
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 0 0 0.3em;
+      color: white;
+    }
+
+    span {
+      color: #f1b22e;
+      display: block;
+      padding: 0.5rem 2rem 2rem;
+    }
+  }
+
+  &:hover .overlay {
+    transform: translateY(0);
+  }
+
+  &:hover .header{
+    transform: translateY(0);
+    background: transparent;
+  }
+}

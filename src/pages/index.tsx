@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
+import { CardItem } from '../components/CardItem';
 import { api } from '../services/api';
 import styles from './home.module.scss';
-import Image from 'next/image'; 
 
 type Hero = {
   id: string;
@@ -17,27 +17,11 @@ export default function Home({ heroes }: HomeProps) {
   return(
     <div className={styles.homepage}>
 
-      <section className="allHeroes">
+      <section className={styles.allHeroes}>
         <ul>
           {heroes.map(hero => {
             return (
-              <li key={hero.id}>
-                <a href="#">
-                  <Image 
-                    width={256} 
-                    height={256} 
-                    src={hero.thumbnail} 
-                    alt={hero.name} 
-                    objectFit="cover" 
-                  />
-                  <div className="overlay">
-                    <div className="header">
-                      <h2>{hero.name}</h2>
-                    </div>
-                    <span>Saiba mais ➞</span>
-                  </div>
-                </a>
-              </li>
+              <CardItem hero={hero} />
             )
           })}
         </ul>

@@ -1,0 +1,49 @@
+.homepage {
+  padding: 0 1rem;
+  max-width: 1410px;
+  margin: 0 auto;
+}
+
+.allHeroes {
+  margin: 3rem 0;
+  ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 1200px){
+  .allHeroes {
+    ul {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+@media (max-width: 960px){
+  .allHeroes {
+    ul {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+@media (max-width: 800px){
+  .allHeroes {
+    ul {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media (max-width: 500px){
+  .allHeroes {
+    ul {
+      grid-template-columns: 1fr;
+    }
+  }
+}

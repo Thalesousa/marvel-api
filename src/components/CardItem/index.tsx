@@ -1,4 +1,3 @@
-import Image from 'next/image'; 
 import styles from './styles.module.scss';
 
 
@@ -6,12 +5,11 @@ export function CardItem({hero}) {
   return (
     <li key={hero.id} className={styles.card}>
       <a href="#">
-        <Image
+        <img
           width={256}
           height={256}
-          src={hero.thumbnail}
+          src={hero.thumbnail.path +'.'+ hero.thumbnail.extension}
           alt={hero.name}
-          objectFit="cover"
         />
         <div className={styles.overlay}>
           <div className={styles.header}>

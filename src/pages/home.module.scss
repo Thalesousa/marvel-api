@@ -9,18 +9,10 @@
   ul {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     align-items: center;
     gap: 2rem;
-  }
-}
-
-@media (max-width: 1200px){
-  .allHeroes {
-    ul {
-      grid-template-columns: repeat(4, 1fr);
-    }
   }
 }
 

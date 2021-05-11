@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import { useEffect, useState } from 'react';
 import { CardItem } from '../components/CardItem';
 import { api } from '../services/api';
 import styles from './home.module.scss';
@@ -6,17 +6,31 @@ import styles from './home.module.scss';
 type Hero = {
   id: string;
   name: string;
-  thumbnail: string;
+  thumbnail: {
+    path: string;
+    extension: string
+  };
 }
 
-type HomeProps = {
-  heroes: Hero[]
-}
+export default function Home() {
+  const [heroes, setHeroes] = useState<Hero[]>([]);
+  const [offset, setOffset] = useState(0);
+  useEffect(() => {
+    async function loadProducts() {
+      const response = await api.get(`/characters`, {
+        params: {
+          offset,
+        }
+      })
+      setHeroes(response.data.data.results)
+    }
 
-export default function Home({ heroes }: HomeProps) {
+    loadProducts();
+  }, [offset]);
+
+
   return(
     <div className={styles.homepage}>
-
       <section className={styles.allHeroes}>
         <ul>
           {heroes.map(hero => {
@@ -30,22 +44,5 @@ export default function Home({ heroes }: HomeProps) {
   )
 }
 
-export  const getStaticProps: GetStaticProps = async () => {
-  const {data} = await api.get('/characters')
-  
-  const {results} = data.data
-
-  const heroes = results.map(hero => {
-    return {
-      id: hero.id,
-      name: hero.name,
-      thumbnail: hero.thumbnail.path + '.' + hero.thumbnail.extension
-    }
-  })
-
-  return {
-    props: {
-      heroes
-    }
-  }
-}
+// export  const getStaticProps: GetStaticProps = async () => {
+  // const {data} = await api.get('/characters')

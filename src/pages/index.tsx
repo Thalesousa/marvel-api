@@ -46,6 +46,12 @@ export default function Home() {
   return(
     <div className={styles.homepage}>
       <section className={styles.allHeroes}>
+        <form>
+          <input type="text" />
+          <button type="submit">
+            <img src="./search_icon.svg" alt="search icon" />
+          </button>
+        </form>
         <ul>
           {heroes.map(hero => {
             return (

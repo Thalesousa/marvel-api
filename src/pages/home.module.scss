@@ -16,7 +16,32 @@
   }
 }
 
-@media (max-width: 960px){
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+
+  button {
+    padding: 1.5rem;
+    border: none;
+    background: var(--red);
+    color: var(--yellow);
+    font-size: bold;
+    font-size: 1.5rem;
+    border-radius: 15px;
+    & + button{
+      margin-left: 1rem;
+    }
+
+    &:disabled {
+      background: #f07566;
+      cursor: default;
+    }
+  }
+}
+
+@media (max-width: 1080px){
   .allHeroes {
     ul {
       grid-template-columns: repeat(3, 1fr);
@@ -32,7 +57,7 @@
   }
 }
 
-@media (max-width: 500px){
+@media (max-width: 600px){
   .allHeroes {
     ul {
       grid-template-columns: 1fr;

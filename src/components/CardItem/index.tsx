@@ -4,10 +4,7 @@ import styles from './styles.module.scss';
 export function CardItem({hero}) {
   return (
     <li key={hero.id} className={styles.card}>
-      <a href="#">
         <img
-          width={256}
-          height={256}
           src={hero.thumbnail.path +'.'+ hero.thumbnail.extension}
           alt={hero.name}
         />
@@ -17,7 +14,6 @@ export function CardItem({hero}) {
           </div>
           <span>Saiba mais ➞</span>
         </div>
-      </a>
     </li>
   )
 }

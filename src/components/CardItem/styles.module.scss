@@ -9,7 +9,12 @@
   overflow: hidden;
   text-decoration: none;
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
-
+  
+  img {
+    width: 300px;
+    height: 456px;
+    object-fit: cover;
+  }
   .overlay{
     background-color: var(--red);
     position: absolute;
@@ -39,7 +44,7 @@
     }
 
     span {
-      color: #f1b22e;
+      color: var(--yellow);
       display: block;
       padding: 0.5rem 2rem 2rem;
     }

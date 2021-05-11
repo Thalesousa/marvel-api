@@ -18,7 +18,6 @@ export default function Home() {
   const [offset, setOffset] = useState(0);
   const [total, setTotal] = useState(0);
   const [limit, setLimit] = useState(12);
-  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     async function loadCharacters() {
@@ -36,8 +35,11 @@ export default function Home() {
   }, [offset]);
 
   function handleNextPage(){
-    setCurrentPage(currentPage + 1)
     setOffset(offset + limit)
+  }
+
+  function handlePreviousPage(){
+    setOffset(offset - limit)
   }
 
 
@@ -57,8 +59,17 @@ export default function Home() {
         </ul>
 
         <div className={styles.pagination}>
-          <button>Previous</button>
-          <button onClick={handleNextPage}>Next</button>
+          {offset <= 0 ? (
+            <button disabled>Previous</button>
+          ): (
+            <button onClick={handlePreviousPage}>Previous</button>
+          )}
+
+          {offset > total-limit ? (
+            <button disabled>Next</button>
+          ):(
+            <button onClick={handleNextPage}>Next</button>
+          )}
         </div>
       </section>
     </div>

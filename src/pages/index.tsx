@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FormEvent } from 'react';
 import Link from 'next/link';
 import { CardItem } from '../components/CardItem';
 import { api } from '../services/api';
@@ -18,6 +18,8 @@ export default function Home() {
   const [offset, setOffset] = useState(0);
   const [total, setTotal] = useState(0);
   const [limit, setLimit] = useState(12);
+  const [newHero, setNewHero] = useState('');
+  const [inputError, setInputError] = useState('');
 
   useEffect(() => {
     async function loadCharacters() {
@@ -30,9 +32,35 @@ export default function Home() {
       setHeroes(response.data.data.results)
       setTotal(response.data.data.total)
     }
-
-    loadCharacters();
+    if (!newHero) {
+      loadCharacters();
+    }
   }, [offset]);
+
+  async function handleSearchHeroes(
+    event: FormEvent<HTMLFormElement>,
+  ): Promise<void> {
+    event.preventDefault();
+    if (!newHero) {
+      setInputError('Digite o nome do personagem');
+      return;
+    }
+    try {
+      const response = await api.get(`/characters`, {
+        params: {
+          nameStartsWith: newHero,
+          limit: 100,
+        }
+      });
+
+      setInputError('');
+      setHeroes(response.data.data.results)
+      setTotal(response.data.data.total)
+      
+    } catch (error) {
+      setInputError(`Erro na busca por esse repositório`);
+    }
+  }
 
   function handleNextPage(){
     setOffset(offset + limit)
@@ -42,15 +70,20 @@ export default function Home() {
     setOffset(offset - limit)
   }
 
-
   return(
     <div className={styles.homepage}>
       <section className={styles.allHeroes}>
-        <form>
-          <input type="text" />
+        <form onSubmit={handleSearchHeroes}>
+          <input 
+            type="text" 
+            placeholder="Digite o nome do personagem" 
+            value={newHero}
+            onChange={(e) => setNewHero(e.target.value)}
+          />
           <button type="submit">
             <img src="./search_icon.svg" alt="search icon" />
           </button>
+          {inputError && <span>{inputError}</span>}
         </form>
         <ul>
           {heroes.map(hero => {
@@ -64,7 +97,8 @@ export default function Home() {
           })}
         </ul>
 
-        <div className={styles.pagination}>
+        {!newHero && (
+          <div className={styles.pagination}>
           {offset <= 0 ? (
             <button disabled>Previous</button>
           ): (
@@ -77,6 +111,8 @@ export default function Home() {
             <button onClick={handleNextPage}>Next</button>
           )}
         </div>
+        )}
+        
       </section>
     </div>
   )

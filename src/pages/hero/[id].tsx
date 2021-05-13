@@ -31,7 +31,6 @@ export default function Hero({ hero }: HeroProps) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.params;
-
   const {data} = await api.get(`/characters/${id}`)
   const {results} = data.data
 

@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { CardItem } from '../components/CardItem';
 import { api } from '../services/api';
 import styles from './home.module.scss';
+import Cookie from 'js-cookie';
+import { GetServerSideProps } from "next";
 
 type Hero = {
   id: string;
@@ -15,7 +17,15 @@ type Hero = {
 
 export default function Home() {
   const [heroes, setHeroes] = useState<Hero[]>([]);
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState(() => {
+    const storageMarvel = Cookie.get('marvel')
+
+    if (storageMarvel) {
+      return Number(storageMarvel)
+    }
+
+    return 0
+  });
   const [total, setTotal] = useState(0);
   const [limit, setLimit] = useState(12);
   const [newHero, setNewHero] = useState('');
@@ -31,10 +41,14 @@ export default function Home() {
       })
       setHeroes(response.data.data.results)
       setTotal(response.data.data.total)
+      Cookie.set('marvel', String(offset), { expires: 2 })
+
     }
     if (!newHero) {
       loadCharacters();
     }
+
+
   }, [offset]);
 
   async function handleSearchHeroes(
@@ -65,9 +79,16 @@ export default function Home() {
   function handleNextPage(){
     setOffset(offset + limit)
   }
+  function handleStartPage(){
+    setOffset(0)
+  }
 
   function handlePreviousPage(){
     setOffset(offset - limit)
+  }
+
+  function handleEndPage(){
+    setOffset(total - limit)
   }
 
   return(
@@ -97,18 +118,19 @@ export default function Home() {
           })}
         </ul>
 
-        {!newHero && (
+        {(!newHero && !inputError) && (
           <div className={styles.pagination}>
-          {offset <= 0 ? (
-            <button disabled>Previous</button>
-          ): (
-            <button onClick={handlePreviousPage}>Previous</button>
+          {offset > 0 && (
+            <>
+              <button onClick={handleStartPage}>Início</button>
+              <button onClick={handlePreviousPage}>«</button>
+            </>
           )}
-
-          {offset > total-limit ? (
-            <button disabled>Next</button>
-          ):(
-            <button onClick={handleNextPage}>Next</button>
+          {offset < (total - limit) && (
+            <>
+              <button onClick={handleNextPage}>»</button>
+              <button onClick={handleEndPage}>Fim</button>
+            </>
           )}
         </div>
         )}

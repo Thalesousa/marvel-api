@@ -4,7 +4,7 @@ import { CardItem } from '../components/CardItem';
 import { api } from '../services/api';
 import styles from './home.module.scss';
 import Cookie from 'js-cookie';
-import { GetServerSideProps } from "next";
+import Head from 'next/head';
 
 type Hero = {
   id: string;
@@ -92,7 +92,11 @@ export default function Home() {
   }
 
   return(
-    <div className={styles.homepage}>
+    <>
+      <Head>
+        <title>Marvel API</title>
+      </Head>
+      <div className={styles.homepage}>
       <section className={styles.allHeroes}>
         <form onSubmit={handleSearchHeroes}>
           <input 
@@ -123,13 +127,13 @@ export default function Home() {
           {offset > 0 && (
             <>
               <button onClick={handleStartPage}>Início</button>
-              <button onClick={handlePreviousPage}>«</button>
+              <button onClick={handlePreviousPage} title="Anterior">«</button>
             </>
           )}
           {offset < (total - limit) && (
             <>
-              <button onClick={handleNextPage}>»</button>
-              <button onClick={handleEndPage}>Fim</button>
+              <button onClick={handleNextPage} title="Próximo">»</button>
+              <button onClick={handleEndPage}>Final</button>
             </>
           )}
         </div>
@@ -137,5 +141,6 @@ export default function Home() {
         
       </section>
     </div>
+    </>
   )
 }

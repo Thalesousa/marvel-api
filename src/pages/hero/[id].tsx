@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import { api } from "../../services/api";
 import styles from './styles.module.scss';
+import Head from 'next/head';
 
 type HeroMarvel= {
   name: string;
@@ -14,18 +15,23 @@ type HeroProps ={
 
 export default function Hero({ hero }: HeroProps) {
   return (
-    <div className={styles.heroContainer}>
-      <article>
-        <h1>{hero.name}</h1>
-        {hero.description ? (
-          <p>{hero.description}</p>
-        ) : (
-          <p>Sem descrição</p>
-        )}
-        
-      </article>
-      <img src={hero.thumbnail} alt={hero.name} />
-    </div>
+    <>
+      <Head>
+        <title>Marvel - {hero.name}</title>
+      </Head>
+      <div className={styles.heroContainer}>
+        <article>
+          <h1>{hero.name}</h1>
+          {hero.description ? (
+            <p>{hero.description}</p>
+          ) : (
+            <p>Sem descrição</p>
+          )}
+          
+        </article>
+        <img src={hero.thumbnail} alt={hero.name} />
+      </div>
+    </>
   )
 }
 

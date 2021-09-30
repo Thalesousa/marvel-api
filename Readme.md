@@ -1,18 +1,14 @@
-<div align="center">
-  <img src="./public/logo.svg" alt="Marvel logo" width="100">
-</div>
-
 ## MARVEL API
 
 [![Author](https://img.shields.io/badge/author-thalesousa-e33c29?style=flat-square)](https://github.com/thalesousa)
 [![Languages](https://img.shields.io/github/languages/count/thalesousa/podcastr?color=%E33c29&style=flat-square)](#)
 [![Stars](https://img.shields.io/github/stars/thalesousa/podcastr?color=e33c29&style=flat-square)](https://github.com/thalesousa/podcastr/stargazers)
 
-<h4 align="center">
-  Marvel API search characters.
-</h4>
+![thumbnail](.github/thumbnail.png)
 
-![Podcastr preview](.github/marvel-api.png)
+## Marvel API search characters.
+
+![Expand site](.github/expand.png)
 
 ## Tecnologies
 

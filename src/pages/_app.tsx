@@ -5,12 +5,14 @@ import '../styles/global.scss';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className={styles.wrapper}>
-      <main>
-        <Header />
-        <Component {...pageProps} />
-      </main>
-    </div>
+    <>
+      <Header />
+      <div className={styles.wrapper}>
+        <main>
+          <Component {...pageProps} />
+        </main>
+      </div>
+    </>
   )
 }
 

@@ -20,29 +20,37 @@
     justify-content: center;
     align-items: center;
     margin: 2rem 0;
+    height: 58px;
     
     input {
-      padding: 1rem;
-      width: 400px;
+      padding: 1rem 2rem;
+      width: 100%;
+      max-width: 500px;
       border: none;
-      border-radius: 16px;
-      background: #e1e1eb;
+      background: #fff;
+      border: 2px solid #e1e1eb;
       color: #121212;
+      font-size: 1.25rem;
       &:focus{
         outline: none;
-    }
+      }
     }
 
     button {
-      padding: 1rem;
       background: var(--red);
       border: none;
-      border-radius: 16px;
-      margin-left: 0.5rem;
       font-size: 0;
+      height: 100%;
+      padding: 20px;
+      color: white;
+      transition: ease-in 0.2s all;
+
+      &:hover {
+        filter: brightness(0.7);
+      }
 
       img {
-        width: 18px;
+        width: 20px;
       }
     }
   }
@@ -55,15 +63,20 @@
   margin-top: 3rem;
 
   button {
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
     border: none;
     background: var(--red);
-    color: var(--yellow);
+    color: #fff;
     font-size: bold;
     font-size: 1.5rem;
-    border-radius: 15px;
+    transition: ease-in 0.2s all;
+
     & + button{
       margin-left: 1rem;
+    }
+
+    &:hover {
+      filter: brightness(0.7);
     }
 
     &:disabled {
